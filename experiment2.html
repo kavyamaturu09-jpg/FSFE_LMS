@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="St. Jude General Hospital - Book specialist appointments, explore clinical departments, and access patient care services.">
+  <title>Patient Appointment Portal | St. Jude General Hospital</title>
+
+  <style>
+    :root {
+      --primary: #0b4f6c;
+      --primary-dark: #07364a;
+      --surface: #f7f9fb;
+      --border: #cbd5e1;
+      --text-main: #1e293b;
+      --error: #b91c1c;
+      --focus-ring: #d97706;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin: 0;
+      background-color: #ffffff;
+    }
+
+    /* Keyboard Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -48px;
+      left: 0;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      font-weight: 700;
+      text-decoration: none;
+      z-index: 1000;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* High-Contrast Keyboard Focus */
+    :focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 1.5rem 2rem;
+    }
+
+    header h1 {
+      margin: 0 0 0.25rem 0;
+      font-size: 1.75rem;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: #ffffff;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      max-width: 1140px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    @media (max-width: 820px) {
+      .layout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    article {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem;
+    }
+
+    article h3 {
+      margin-top: 0;
+      color: var(--primary-dark);
+    }
+
+    dl {
+      margin: 0;
+    }
+
+    dt {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    dd {
+      margin: 0 0 0.5rem 0;
+    }
+
+    aside {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      border-radius: 4px;
+      height: fit-content;
+    }
+
+    /* Accessible Form Styles */
+    form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .field-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .hint-text {
+      display: block;
+      font-size: 0.875rem;
+      color: #475569;
+      margin-top: 0.25rem;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.65rem;
+      border: 1px solid #64748b;
+      border-radius: 4px;
+      font-size: 1rem;
+      background: #ffffff;
+    }
+
+    input:user-invalid,
+    select:user-invalid {
+      border-color: var(--error);
+      border-width: 2px;
+    }
+
+    fieldset {
+      border: 1px solid #64748b;
+      border-radius: 4px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    legend {
+      font-weight: 600;
+      padding: 0 0.5rem;
+    }
+
+    .choice-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 400;
+      margin-right: 1.25rem;
+      cursor: pointer;
+    }
+
+    button[type="submit"] {
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.8rem 1.75rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: var(--primary-dark);
+    }
+
+    footer {
+      background-color: #1e293b;
+      color: #ffffff;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header>
+    <h1>St. Jude General Hospital</h1>
+    <p>Comprehensive Outpatient &amp; Specialist Care Portal</p>
+    <nav aria-label="Primary Site Navigation">
+      <ul>
+        <li><a href="#hospital-services">Clinical Services</a></li>
+        <li><a href="#medical-specialists">Our Doctors</a></li>
+        <li><a href="#appointment-booking">Book Appointment</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="layout-grid">
+    <main id="main-content">
+
+      <!-- Section 1: Hospital Services -->
+      <section id="hospital-services" aria-labelledby="services-heading">
+        <h2 id="services-heading">Clinical Services</h2>
+        <div class="card-grid">
+          <article>
+            <h3>Cardiology &amp; Vascular Care</h3>
+            <p>Non-invasive diagnostics, ECG stress testing, and preventive heart health consultations.</p>
+          </article>
+          <article>
+            <h3>Orthopedics &amp; Sports Medicine</h3>
+            <p>Joint replacement evaluation, fracture management, and outpatient physical rehabilitation.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 2: Doctor Information -->
+      <section id="medical-specialists" aria-labelledby="doctors-heading">
+        <h2 id="doctors-heading">Medical Specialists</h2>
+        <div class="card-grid">
+          <article>
+            <h3>Dr. Meera Nair, MD</h3>
+            <dl>
+              <dt>Department</dt>
+              <dd>Senior Consultant, Cardiology</dd>
+              <dt>OPD Schedule</dt>
+              <dd>Monday, Wednesday, Friday (9:00 AM – 1:00 PM)</dd>
+            </dl>
+          </article>
+          <article>
+            <h3>Dr. Rohan Kulkarni, MS</h3>
+            <dl>
+              <dt>Department</dt>
+              <dd>Head of Orthopedics</dd>
+              <dt>OPD Schedule</dt>
+              <dd>Tuesday, Thursday, Saturday (10:00 AM – 3:00 PM)</dd>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 3: Accessible Patient Appointment Form -->
+      <section id="appointment-booking" aria-labelledby="form-heading">
+        <h2 id="form-heading">Schedule a Patient Appointment</h2>
+        <p id="required-note">All fields marked with <span aria-hidden="true">*</span> are required.</p>
+
+        <form action="/api/appointments" method="POST" aria-describedby="required-note">
+          
+          <div class="field-group">
+            <label for="patient-name">Patient Full Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="patient-name" name="patientName" required autocomplete="name" aria-required="true">
+          </div>
+
+          <div class="field-group">
+            <label for="patient-phone">Mobile Phone Number <span aria-hidden="true">*</span></label>
+            <input type="tel" id="patient-phone" name="patientPhone" required autocomplete="tel" pattern="[0-9]{10}" aria-describedby="phone-hint" placeholder="9876543210">
+            <span id="phone-hint" class="hint-text">Enter a 10-digit mobile number without spaces or dashes.</span>
+          </div>
+
+          <div class="field-group">
+            <label for="patient-email">Email Address</label>
+            <input type="email" id="patient-email" name="patientEmail" autocomplete="email" placeholder="patient@example.com">
+          </div>
+
+          <div class="field-group">
+            <label for="department-select">Select Department &amp; Specialist <span aria-hidden="true">*</span></label>
+            <select id="department-select" name="specialist" required>
+              <option value="">-- Choose a specialist --</option>
+              <option value="cardiology-nair">Cardiology – Dr. Meera Nair</option>
+              <option value="orthopedics-kulkarni">Orthopedics – Dr. Rohan Kulkarni</option>
+              <option value="general-opd">General Medicine – Duty Physician</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="appointment-date">Preferred Appointment Date <span aria-hidden="true">*</span></label>
+            <input type="date" id="appointment-date" name="appointmentDate" required min="2026-11-20">
+          </div>
+
+          <fieldset>
+            <legend>Visit Type <span aria-hidden="true">*</span></legend>
+            <label class="choice-label" for="visit-new">
+              <input type="radio" id="visit-new" name="visitType" value="new" required>
+              First-Time Consultation
+            </label>
+            <label class="choice-label" for="visit-followup">
+              <input type="radio" id="visit-followup" name="visitType" value="followup">
+              Follow-Up Visit
+            </label>
+          </fieldset>
+
+          <div class="field-group">
+            <label for="symptoms-notes">Primary Symptoms or Reason for Visit</label>
+            <textarea id="symptoms-notes" name="symptoms" rows="3" placeholder="Briefly describe your symptoms or attach previous referral notes."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="choice-label" for="consent-checkbox">
+              <input type="checkbox" id="consent-checkbox" name="consent" required>
+              I consent to receive SMS/email appointment reminders. <span aria-hidden="true">*</span>
+            </label>
+          </div>
+
+          <button type="submit">Confirm Appointment</button>
+        </form>
+      </section>
+
+    </main>
+
+    <!-- Complementary Emergency & Hours Aside -->
+    <aside aria-labelledby="emergency-heading">
+      <h2 id="emergency-heading">24/7 Emergency Triage</h2>
+      <p><strong>Emergency Desk:</strong> <a href="tel:+911125550199">+91 11 2555 0199</a></p>
+      <p>For chest pain, severe trauma, or acute breathing difficulty, proceed directly to Ground Floor Wing A.</p>
+      <hr>
+      <h3>Visiting Hours</h3>
+      <p>General Wards: 4:00 PM – 6:00 PM Daily</p>
+    </aside>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 St. Jude General Hospital. Accredited Healthcare Facility.</p>
+  </footer>
+
+</body>
+</html>
